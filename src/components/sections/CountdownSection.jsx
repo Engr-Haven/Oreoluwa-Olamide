@@ -7,7 +7,8 @@ function pad(n) {
 }
 
 function getTimeLeft() {
-  const target = new Date(WEDDING.weddingDateISO);
+  const [y, m, d] = WEDDING.weddingDateISO.split("-").map(Number);
+  const target = new Date(y, m - 1, d);
   const now = new Date();
   const diff = target - now;
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -42,6 +43,7 @@ export default function CountdownSection() {
           fontFamily: "var(--font-body)",
           fontSize: "0.6rem",
           color: "var(--color-gold)",
+          margin: "1rem 0",
         }}
       >
         ✦ Countdown ✦
@@ -77,6 +79,7 @@ export default function CountdownSection() {
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
                 color: "var(--color-brown-light)",
+                margin: "1rem 0",
               }}
             >
               {label}

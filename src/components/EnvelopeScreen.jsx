@@ -54,14 +54,16 @@ export default function EnvelopeScreen({ onOpen }) {
 
       <div className="mobile-video-hint">Tap to open</div>
 
-      <a
-        href={WEDDING.studio.url}
-        target="_blank"
-        rel="noreferrer"
-        className="reel-studio-link"
-      >
-        {WEDDING.studio.name}
-      </a>
+      {WEDDING.studio.name && (
+        <a
+          href={WEDDING.studio.url || "#"}
+          target="_blank"
+          rel="noreferrer"
+          className="reel-studio-link pt-2"
+        >
+          {WEDDING.studio.name}
+        </a>
+      )}
     </div>
   );
 }

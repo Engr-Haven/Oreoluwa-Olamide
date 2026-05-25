@@ -7,7 +7,11 @@ dist/
 # Temp files
 .codex-tmp/
 
-# Other common ones worth adding
 .env
+.env.local
+.env.production
+.env.development
 .DS_Store
 *.log
+*.err.log
+*.out.log
