@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 230" role="img" aria-label="Oval wax seal">
+  <defs>
+    <radialGradient id="waxOuter" cx="38%" cy="24%" r="74%">
+      <stop offset="0%" stop-color="#ffe4a6" />
+      <stop offset="38%" stop-color="#b77a31" />
+      <stop offset="72%" stop-color="#80501f" />
+      <stop offset="100%" stop-color="#4f2f16" />
+    </radialGradient>
+    <radialGradient id="waxInner" cx="42%" cy="30%" r="64%">
+      <stop offset="0%" stop-color="#ffefbf" />
+      <stop offset="44%" stop-color="#bc8238" />
+      <stop offset="100%" stop-color="#6a401c" />
+    </radialGradient>
+    <linearGradient id="rimLight" x1="25%" x2="76%" y1="5%" y2="100%">
+      <stop offset="0%" stop-color="#fff1bd" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#bc8238" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#2f1a0d" stop-opacity="0.65" />
+    </linearGradient>
+    <filter id="sealShadow" x="-25%" y="-18%" width="150%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="9" flood-color="#3b2112" flood-opacity="0.42" />
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#fff0bc" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <g filter="url(#sealShadow)">
+    <path
+      d="M91 7C121 6 149 25 160 57C171 90 163 126 155 161C146 196 123 221 91 223C58 225 31 204 21 170C11 136 8 96 18 61C28 27 58 8 91 7Z"
+      fill="url(#waxOuter)"
+    />
+    <path
+      d="M90 18C116 17 140 34 150 62C159 91 153 125 145 156C137 187 116 210 90 211C63 212 41 193 32 163C23 132 21 96 30 65C39 35 63 19 90 18Z"
+      fill="none"
+      stroke="url(#rimLight)"
+      stroke-width="7"
+    />
+    <ellipse cx="90" cy="115" rx="57" ry="77" fill="url(#waxInner)" />
+    <ellipse cx="90" cy="115" rx="49" ry="67" fill="none" stroke="#f2ca76" stroke-opacity="0.68" stroke-width="3.5" />
+    <ellipse cx="90" cy="115" rx="39" ry="54" fill="none" stroke="#5f3519" stroke-opacity="0.5" stroke-width="2" />
+
+    <path
+      d="M90 71C90 97 91 123 90 157"
+      fill="none"
+      stroke="#5a3117"
+      stroke-linecap="round"
+      stroke-width="4"
+    />
+    <path
+      d="M90 82C78 79 68 69 66 58C82 57 91 66 90 82ZM91 92C106 86 118 75 121 61C103 60 91 73 91 92ZM89 108C73 104 60 93 57 79C76 78 88 91 89 108ZM91 119C109 114 123 101 127 84C106 83 92 101 91 119ZM88 137C73 134 61 124 57 111C75 109 88 122 88 137ZM92 149C106 146 119 136 124 121C106 119 94 133 92 149Z"
+      fill="#d6a24b"
+      stroke="#5a3117"
+      stroke-linejoin="round"
+      stroke-width="2.6"
+    />
+    <path
+      d="M64 168C78 177 104 177 118 168M67 53C77 40 103 39 114 53M62 182C79 197 103 197 119 182"
+      fill="none"
+      stroke="#f0c56f"
+      stroke-linecap="round"
+      stroke-opacity="0.62"
+      stroke-width="3"
+    />
+    <path
+      d="M45 87C47 64 61 42 82 33M133 82C132 62 121 43 103 34"
+      fill="none"
+      stroke="#2e190d"
+      stroke-linecap="round"
+      stroke-opacity="0.28"
+      stroke-width="2.4"
+    />
+    <path
+      d="M55 42C69 23 103 20 124 42"
+      fill="none"
+      stroke="#fff1bd"
+      stroke-linecap="round"
+      stroke-opacity="0.5"
+      stroke-width="3"
+    />
+  </g>
+</svg>
