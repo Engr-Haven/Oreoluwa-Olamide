@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Music, VolumeX } from "lucide-react";
+import songOo from "@/assets/song-oo.mpeg";
 
-export default function AudioPlayer({ play }) {
+export default function AudioPlayer({ playOn }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    if (!play || !audioRef.current) return;
+    if (!playOn || !audioRef.current) return;
     audioRef.current.volume = 0.4;
     audioRef.current.loop = true;
     audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-  }, [play]);
+  }, [playOn]);
 
   const toggle = () => {
     if (!audioRef.current) return;
@@ -24,7 +25,7 @@ export default function AudioPlayer({ play }) {
 
   return (
     <>
-      <audio ref={audioRef} src="/background-music.mp3" preload="auto" />
+      <audio ref={audioRef} src={songOo} preload="auto" />
       <button
         onClick={toggle}
         className="fixed bottom-6 left-6 z-50 flex items-center justify-center rounded-full transition-all hover:scale-110"
@@ -36,7 +37,7 @@ export default function AudioPlayer({ play }) {
           border: "none",
           cursor: "pointer",
           boxShadow: "0 4px 16px rgba(201,169,110,0.4)",
-          opacity: play ? 1 : 0,
+          opacity: playOn ? 1 : 0,
         }}
         aria-label={isPlaying ? "Pause music" : "Play music"}
       >

@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [songStarted, setSongStarted] = useState(false);
 
   return (
     <div
@@ -17,15 +18,20 @@ export default function App() {
       style={{ backgroundColor: "var(--color-parchment)" }}
     >
       {/* Envelope / Wax Seal Screen */}
-      {!isOpen && <EnvelopeScreen onOpen={() => setIsOpen(true)} />}
+      {!isOpen && (
+        <EnvelopeScreen
+          onOpen={() => setIsOpen(true)}
+          onSongStart={() => setSongStarted(true)}
+        />
+      )}
 
       {/* Background Music */}
-      <AudioPlayer play={isOpen} />
+      <AudioPlayer playOn={songStarted} />
 
       {/* Invitation Content */}
       {isOpen && (
         <div
-          className="animate-invitation-reveal w-full max-w-md mx-auto"
+          className="animate-invitation-reveal w-full max-w-lg mx-auto"
           style={{ backgroundColor: "var(--color-cream)" }}
         >
           {/* Sticky mini nav dots */}

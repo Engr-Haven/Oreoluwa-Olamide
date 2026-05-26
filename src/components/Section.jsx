@@ -24,7 +24,7 @@ export default function Section({ children, className, id }) {
     <section
       id={id}
       ref={ref}
-      className={cn("reveal px-6 py-14 max-w-md mx-auto w-full", className)}
+      className={cn("reveal px-6 py-14 w-full", className)}
     >
       {children}
     </section>

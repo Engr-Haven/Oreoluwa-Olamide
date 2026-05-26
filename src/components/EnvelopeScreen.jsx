@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { WEDDING } from "@/config";
 import videoOo from "@/assets/video-oo.mp4";
 
-export default function EnvelopeScreen({ onOpen }) {
+export default function EnvelopeScreen({ onOpen, onSongStart }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
 
@@ -16,6 +16,7 @@ export default function EnvelopeScreen({ onOpen }) {
   const handleTap = () => {
     if (isPlaying) return;
     setIsPlaying(true);
+    onSongStart?.();
     // play the video once; when it ends we'll advance
     if (videoRef.current && typeof videoRef.current.play === "function") {
       // ensure play is called as a result of user gesture
