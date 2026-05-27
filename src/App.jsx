@@ -1,88 +1,94 @@
-import { useState } from "react";
+import { lazy, Suspense, useRef, useState, useCallback } from "react";
 import EnvelopeScreen from "@/components/EnvelopeScreen";
-import HeroSection from "@/components/sections/HeroSection";
-import SaveDateSection from "@/components/sections/SaveDateSection";
-import CountdownSection from "@/components/sections/CountdownSection";
-import RSVPSection from "@/components/sections/RSVPSection";
 import AudioPlayer from "@/components/AudioPlayer";
-import LogoSection from "@/components/sections/LogoSection";
-import Footer from "@/components/Footer";
+
+const HeroSection = lazy(() => import("@/components/sections/HeroSection"));
+const SaveDateSection = lazy(() => import("@/components/sections/SaveDateSection"));
+const CountdownSection = lazy(() => import("@/components/sections/CountdownSection"));
+const RSVPSection = lazy(() => import("@/components/sections/RSVPSection"));
+const LogoSection = lazy(() => import("@/components/sections/LogoSection"));
+const Footer = lazy(() => import("@/components/Footer"));
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [songStarted, setSongStarted] = useState(false);
+  const audioRef = useRef(null);
+
+  const handleOpen = useCallback(() => setIsOpen(true), []);
+
+  const handleSongStart = useCallback(() => {
+    setSongStarted(true);
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 0.4;
+      audio.loop = true;
+      audio.play().catch(() => {});
+    }
+  }, []);
 
   return (
     <div
       className="min-h-screen w-full"
       style={{ backgroundColor: "var(--color-parchment)" }}
     >
-      {/* Envelope / Wax Seal Screen */}
       {!isOpen && (
         <EnvelopeScreen
-          onOpen={() => setIsOpen(true)}
-          onSongStart={() => setSongStarted(true)}
+          onOpen={handleOpen}
+          onSongStart={handleSongStart}
         />
       )}
 
-      {/* Background Music */}
-      <AudioPlayer playOn={songStarted} />
+      <AudioPlayer ref={audioRef} playOn={songStarted} />
 
-      {/* Invitation Content */}
       {isOpen && (
         <div
           className="animate-invitation-reveal w-full max-w-lg mx-auto"
           style={{ backgroundColor: "var(--color-cream)" }}
         >
-          {/* Sticky mini nav dots */}
-          <nav className="fixed top-4 right-4 z-40 flex flex-col gap-2" aria-label="Section navigation">
-            {["hero", "rsvp"].map((id) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                className="w-1.5 h-1.5 rounded-full opacity-30 hover:opacity-80 transition-opacity"
-                style={{ backgroundColor: "var(--color-gold)" }}
-                aria-label={`Go to ${id} section`}
-              />
-            ))}
-          </nav>
+          <Suspense fallback={null}>
+            <nav className="fixed top-4 right-4 z-40 flex flex-col gap-2" aria-label="Section navigation">
+              {["hero", "rsvp"].map((id) => (
+                <a
+                  key={id}
+                  href={`#${id}`}
+                  className="w-1.5 h-1.5 rounded-full opacity-30 hover:opacity-80 transition-opacity"
+                  style={{ backgroundColor: "var(--color-gold)" }}
+                  aria-label={`Go to ${id} section`}
+                />
+              ))}
+            </nav>
 
-          {/* === HERO === */}
-          <div id="hero">
-            <HeroSection />
-          </div>
+            <div id="hero">
+              <HeroSection />
+            </div>
 
-          {/* === SAVE THE DATE === */}
-          <SaveDateSection />
+            <SaveDateSection />
 
-          {/* === COUNTDOWN === */}
-          <div
-            style={{
-              background:
-                "linear-gradient(to bottom, var(--color-cream), var(--color-blush))",
-            }}
-          >
-            <CountdownSection />
-          </div>
+            <div
+              style={{
+                background:
+                  "linear-gradient(to bottom, var(--color-cream), var(--color-blush))",
+              }}
+            >
+              <CountdownSection />
+            </div>
 
-          {/* === RSVP === */}
-          <div
-            id="rsvp"
-            style={{
-              background:
-                "linear-gradient(to bottom, var(--color-cream), var(--color-blush))",
-            }}
-          >
-            <RSVPSection />
-          </div>
+            <div
+              id="rsvp"
+              style={{
+                background:
+                  "linear-gradient(to bottom, var(--color-cream), var(--color-blush))",
+              }}
+            >
+              <RSVPSection />
+            </div>
 
-          {/* === LOGO === */}
-          <LogoSection />
+            <LogoSection />
 
-          {/* === FOOTER === */}
-          <div style={{ backgroundColor: "var(--color-blush)" }}>
-            <Footer />
-          </div>
+            <div style={{ backgroundColor: "var(--color-blush)" }}>
+              <Footer />
+            </div>
+          </Suspense>
         </div>
       )}
     </div>

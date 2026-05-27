@@ -6,7 +6,6 @@ export default function EnvelopeScreen({ onOpen, onSongStart }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
 
-  // Skip the mobile reel on larger viewports and open immediately
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth > 480) {
       onOpen();
@@ -17,21 +16,18 @@ export default function EnvelopeScreen({ onOpen, onSongStart }) {
     if (isPlaying) return;
     setIsPlaying(true);
     onSongStart?.();
-    // play the video once; when it ends we'll advance
-    if (videoRef.current && typeof videoRef.current.play === "function") {
-      // ensure play is called as a result of user gesture
-      videoRef.current.play().catch(() => {
-        /* ignore play errors */
-      });
+    const el = videoRef.current;
+    if (el) {
+      el.src = videoOo;
+      el.load();
+      el.play().catch(() => {});
     }
   };
 
   useEffect(() => {
     if (!isPlaying || !videoRef.current) return;
     const el = videoRef.current;
-    const handleEnded = () => {
-      onOpen();
-    };
+    const handleEnded = () => onOpen();
     el.addEventListener("ended", handleEnded);
     return () => el.removeEventListener("ended", handleEnded);
   }, [isPlaying, onOpen]);
@@ -46,15 +42,12 @@ export default function EnvelopeScreen({ onOpen, onSongStart }) {
     >
       <video
         ref={videoRef}
-        src={videoOo}
         playsInline
         muted
         className="mobile-video-element"
         aria-label="Invitation reel"
       />
-
       <div className="mobile-video-hint">Tap to open</div>
-
       {WEDDING.studio.name && (
         <a
           href={WEDDING.studio.url || "#"}

@@ -36,6 +36,7 @@ export default function HeroSection() {
           alt="Couple"
           className="w-full h-full object-cover"
           style={{ objectPosition: "center top" }}
+          loading="lazy"
         />
         {/* Gradient fade into card below */}
         <div

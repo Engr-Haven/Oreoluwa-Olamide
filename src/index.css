@@ -648,8 +648,14 @@ body {
 }
 
 @media (min-width: 481px) {
-  .mobile-video-screen {
-    display: none;
+  .mobile-video-element {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+  .mobile-video-hint {
+    bottom: max(32px, env(safe-area-inset-bottom));
+    font-size: 1.2rem;
   }
 }
 
