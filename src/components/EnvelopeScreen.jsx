@@ -6,21 +6,12 @@ export default function EnvelopeScreen({ onOpen, onSongStart }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.innerWidth > 480) {
-      onOpen();
-    }
-  }, [onOpen]);
-
   const handleTap = () => {
     if (isPlaying) return;
     setIsPlaying(true);
     onSongStart?.();
-    const el = videoRef.current;
-    if (el) {
-      el.src = videoOo;
-      el.load();
-      el.play().catch(() => {});
+    if (videoRef.current && typeof videoRef.current.play === "function") {
+      videoRef.current.play().catch(() => {});
     }
   };
 
@@ -43,11 +34,15 @@ export default function EnvelopeScreen({ onOpen, onSongStart }) {
       <video
         ref={videoRef}
         playsInline
+        webkit-playsinline="true"
+        // preload="none"
         muted
         className="mobile-video-element"
         aria-label="Invitation reel"
-      />
-      <div className="mobile-video-hint">Tap to open</div>
+      >
+        <source src={videoOo} type="video/mp4" />
+      </video>
+      <div className="mobile-video-hint">Tap</div>
       {WEDDING.studio.name && (
         <a
           href={WEDDING.studio.url || "#"}

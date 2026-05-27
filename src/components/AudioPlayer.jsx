@@ -1,24 +1,29 @@
-import { useState } from "react";
+import { useState, useRef, forwardRef } from "react";
 import { Music, VolumeX } from "lucide-react";
 import songOo from "@/assets/song-oo.mpeg";
 
-export default function AudioPlayer({ ref, playOn }) {
+const AudioPlayer = forwardRef(function AudioPlayer({ playOn }, ref) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const innerRef = useRef(null);
+  const audioRef = ref ?? innerRef;
 
   const toggle = () => {
-    const audio = ref?.current;
+    const audio = audioRef?.current;
     if (!audio) return;
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
     }
   };
 
   return (
     <>
       <audio
-        ref={ref}
+        ref={audioRef}
         preload="none"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
@@ -45,4 +50,6 @@ export default function AudioPlayer({ ref, playOn }) {
       )}
     </>
   );
-}
+});
+
+export default AudioPlayer;

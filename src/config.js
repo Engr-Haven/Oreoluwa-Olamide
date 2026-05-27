@@ -36,7 +36,7 @@ export const WEDDING = {
   // --- Studio / Branding ---
   studio: {
     enabled: false,
-    name: "O & O",
+    // name: "O & O",
     url: "#",
   },
 };
